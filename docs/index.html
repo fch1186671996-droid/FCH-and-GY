@@ -22,7 +22,7 @@
         body {
             overflow: hidden;
             display: flex;
-            perspective: 1000px;
+            perspective: 2000px;
             background: #111;
         }
 
@@ -147,11 +147,11 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
             box-shadow: 0 0 8px #fff;
             /*倒影 */
-            /*-webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);*/
+            
         }
 
         #dragBox img:hover {
@@ -248,7 +248,7 @@
         </div>
     </div>
     <script>
-        let radius = 560;
+        let radius = 400;
         //相册展开大小
         let outDom = document.getElementById("dragBox");
         outDom.style.display = 'none';
@@ -421,6 +421,5 @@
         }
     </script>
 </body>
-
 
 </html>
