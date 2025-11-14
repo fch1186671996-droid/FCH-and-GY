@@ -134,12 +134,12 @@
 
         #spinBox2 {
             position: absolute;
-            top: 120%;
+            top: 80%;
         }
 
         #spinBox3 {
             position: absolute;
-            top: -120%;
+            top: -80%;
         }
 
         #dragBox img {
@@ -147,8 +147,8 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 80%;
-            height: 80%;
+            width: 70%;
+            height: 70%;
             box-shadow: 0 0 8px #fff;
             /*倒影 */
             
@@ -248,7 +248,7 @@
         </div>
     </div>
     <script>
-        let radius = 400;
+        let radius = 250;
         //相册展开大小
         let outDom = document.getElementById("dragBox");
         outDom.style.display = 'none';
@@ -267,7 +267,7 @@
 
         function setStyle(delayTime, dom, i, len) {
             //给元素加动画 展开
-            dom.style.transform = "rotateY(" + (i * (360 / len)) + "deg) translateZ(" + radius + "px)";
+            dom.style.transform = "rotateY(" + (i * (360 / len)*1.5) + "deg) translateZ(" + radius + "px)";
             dom.style.transition = "transform 1s";
             dom.style.transitionDelay = delayTime || (len - i) / 4 + "s";
         }
@@ -356,7 +356,7 @@
             let d = e.wheelDelta / 20 || -e.detail;
             radius += d;
             //展开大小
-            init(1);
+            init(0.5);
         }
         //暂停开始旋转
         function playSpin(yes) {
