@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3d照片表白墙</title>
     <style>
+	
         * {
             margin: 0;
             padding: 0;
@@ -168,83 +169,79 @@
                 transform: rotateY(360deg);
             }
         }
+		
+		#starCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* 星空在最底层 */
+}
+
+		
     </style>
 </head>
 
 <body>
+<canvas id="starCanvas"></canvas>
+
     <div class="click_me_shell" id="click_me_shell">
         <audio loop src="img/落在生命里的光-尹昔眠.m4a" id="audio" autoplay preload="auto"></audio>
         <button class="click_me">Click Me</button>
     </div>
     <div id="dragBox">
+	
         <div class="spinBox" id="spinBox">
-            <img src="img/1.webp">
-            <img src="img/2.webp">
+            <img src="img/1.jpg">
+            <img src="img/2.jpg">
             <img src="img/3.webp">
-            <img src="img/4.webp">
+            <img src="img/4.jpg">
             <img src="img/6.webp">
             <img src="img/7.webp">
             <img src="img/8.webp">
             <img src="img/1.webp">
             <img src="img/2.webp">
             <img src="img/3.webp">
-            <img src="img/4.webp">
+            <img src="img/4.jpg">
             <img src="img/6.webp">
             <img src="img/7.webp">
             <img src="img/8.webp">
-            <img src="img/1.webp">
-            <img src="img/2.webp">
-            <img src="img/3.webp">
-            <img src="img/4.webp">
-            <img src="img/6.webp">
-            <img src="img/7.webp">
-            <img src="img/8.webp">
+            
         </div>
         <div class="spinBox" id="spinBox2">
-            <img src="img/2.webp">
-            <img src="img/3.webp">
-            <img src="img/4.webp">
+            <img src="img/2.jpg">
+            <img src="img/3.jpg">
+            <img src="img/4.jpg">
             <img src="img/6.webp">
             <img src="img/7.webp">
             <img src="img/8.webp">
             <img src="img/1.webp">
             <img src="img/2.webp">
             <img src="img/3.webp">
-            <img src="img/4.webp">
+            <img src="img/4.jpg">
             <img src="img/6.webp">
             <img src="img/7.webp">
             <img src="img/8.webp">
             <img src="img/1.webp">
-            <img src="img/2.webp">
-            <img src="img/3.webp">
-            <img src="img/4.webp">
-            <img src="img/6.webp">
-            <img src="img/7.webp">
-            <img src="img/8.webp">
-            <img src="img/1.webp">
+            
         </div>
         <div class="spinBox" id="spinBox3">
             <img src="img/3.webp">
-            <img src="img/4.webp">
+            <img src="img/4.jpg">
             <img src="img/6.webp">
             <img src="img/7.webp">
             <img src="img/8.webp">
             <img src="img/1.webp">
             <img src="img/2.webp">
             <img src="img/3.webp">
-            <img src="img/4.webp">
+            <img src="img/4.jpg">
             <img src="img/6.webp">
             <img src="img/7.webp">
             <img src="img/8.webp">
             <img src="img/1.webp">
             <img src="img/2.webp">
-            <img src="img/3.webp">
-            <img src="img/4.webp">
-            <img src="img/6.webp">
-            <img src="img/7.webp">
-            <img src="img/8.webp">
-            <img src="img/1.webp">
-            <img src="img/2.webp">
+            
         </div>
     </div>
     <script>
@@ -267,7 +264,7 @@
 
         function setStyle(delayTime, dom, i, len) {
             //给元素加动画 展开
-            dom.style.transform = "rotateY(" + (i * (360 / len)*1.5) + "deg) translateZ(" + radius + "px)";
+            dom.style.transform = "rotateY(" + (i * (360 / len)) + "deg) translateZ(" + radius + "px)";
             dom.style.transition = "transform 1s";
             dom.style.transitionDelay = delayTime || (len - i) / 4 + "s";
         }
@@ -419,6 +416,116 @@
             }
             return false;
         }
+		
+// 无限循环 3D 雪花飘落
+!function() {
+    const numFlakes = 100;
+    const flakes = [];
+
+    for (let i = 0; i < numFlakes; i++) {
+        const flake = document.createElement('div');
+        flake.className = 'snowflake';
+        flake.style.position = 'fixed';
+        flake.style.top = `${Math.random() * window.innerHeight}px`;
+        flake.style.left = `${Math.random() * window.innerWidth}px`;
+        const size = Math.random() * 20;
+        flake.style.width = flake.style.height = `${size}px`;
+        flake.style.backgroundImage = 'url("img/snowflake.png")'; // 雪花图片
+        flake.style.backgroundSize = 'contain';
+        flake.style.backgroundRepeat = 'no-repeat';
+        flake.style.pointerEvents = 'none';
+        flake.style.zIndex = 9999;
+        flake.style.opacity = Math.random() * 0.7 + 0.3;
+        flake.style.filter = `blur(${Math.random() * 2}px)`;
+
+        // 初始旋转角度
+        flake.angleX = Math.random() * 360;
+        flake.angleY = Math.random() * 360;
+        flake.angleZ = Math.random() * 360;
+
+        // 飘落速度
+        flake.speedY = Math.random() * 2 + 1;
+        flake.speedX = (Math.random() - 0.5) * 1;
+
+        flakes.push(flake);
+        document.body.appendChild(flake);
+    }
+
+    function animateFlakes() {
+        flakes.forEach(flake => {
+            let top = parseFloat(flake.style.top);
+            let left = parseFloat(flake.style.left);
+
+            // 更新位置
+            top += flake.speedY;
+            left += flake.speedX;
+
+            // 更新旋转
+            flake.angleX += Math.random() * 2;
+            flake.angleY += Math.random() * 2;
+            flake.angleZ += Math.random() * 2;
+
+            flake.style.top = top + 'px';
+            flake.style.left = left + 'px';
+            flake.style.transform = `rotateX(${flake.angleX}deg) rotateY(${flake.angleY}deg) rotateZ(${flake.angleZ}deg)`;
+
+            // 超出屏幕重置
+            if (top > window.innerHeight) {
+                flake.style.top = '-30px';
+                flake.style.left = Math.random() * window.innerWidth + 'px';
+                flake.angleX = Math.random() * 360;
+                flake.angleY = Math.random() * 360;
+                flake.angleZ = Math.random() * 360;
+            }
+            if (left > window.innerWidth) flake.style.left = '0px';
+            if (left < 0) flake.style.left = window.innerWidth + 'px';
+        });
+        requestAnimationFrame(animateFlakes);
+    }
+
+    animateFlakes();
+}();
+
+// 星空 Canvas
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const stars = [];
+const numStars = 150; // 星星数量
+
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        alpha: Math.random(),
+        delta: Math.random() * 0.02 -0.01 // 闪烁速度
+    });
+}
+
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(star => {
+        star.alpha += star.delta;
+        if (star.alpha > 1) star.alpha = 0;
+        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI*2);
+        ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+
     </script>
 </body>
 
